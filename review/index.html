@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+     table, th, td {
+      border: 1px solid black;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <template>
+    <span>Hello,World!</span>
+  </template>
+  <div>
+    <div>
+      <button type="button" id="insertBtn">+</button>
+      <button type="button" id="ajaxBtn">전송</button>
+    </div>
+    <table class="list user">
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="allCh1"></th>
+          <th>No.</th>
+          <th>아이디</th>
+          <th>비밀번호</th>
+          <th>구분</th>
+          <th>이름</th>
+          <th>가입날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox" disabled></td>
+          <td>001</td>
+          <td>Anony</td>
+          <td>1234</td>
+          <td>
+            <select>
+              <option value="Male">남자</option>
+              <option value="Female" selected>여자</option>
+            </select>
+          </td>
+          <td>한지수</td>
+          <td>2023-10-31</td>
+          <td>
+            <button type="button">삭제</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="jsreview.js"></script>
+</body>
+<script>
+  
+/*
+      Javascript DOM 탐색
+      -- 메소드
+      document.getElementById()
+      document.getElementsByTagName()
+      document.getElementsByName()
+      document.getElementsByClassName()
+
+
+      // 선택자(CSS Selector)를 기반으로 검색
+      document.querySelector()
+      document.querySelectorAll()
+
+      -- 관계 관련 속성
+      부모 : parentElement
+      자식 : children, firstElementChild, lastElementChild
+      형제 : previousElementSibling, nextElementSibling
+
+    */
+
+// class 속성 : className, classList
+let tableTag = document.querySelectorAll('table')[0];
+console.log(typeof tableTag.className, tableTag.className);
+tableTag.classList.remove('user');
+console.log(typeof tableTag.classList, tableTag.classList);
+
+// 1) table에 border 속성 변경
+let tags = document.querySelectorAll('table, th, td');
+for (let tag of tags) {
+  tag.style.border = '1px dotted blue';
+  // tag.style.borderWidth = '2px';
+  // tag.style.borderStyle = 'dotted';
+  // tag.style.borderColor = 'green';
+
+  // border-color : borderColor
+  // tag.style['border-color'] = 'blue';
+
+}
+
+// 2) 지정된 데이터를 console에 출력
+let tdList = document.querySelector('tbody > tr').children;
+for (let i = 0; i < tdList.length; i++) {
+
+
+
+  let tag = tdList[i];
+
+  let content = null;
+  if (tag.children.length == 0) { // td 태그의 자식요소가 없는 경우
+    content = tag.textContent;
+  } else if (tag.firstElementChild.tagName == 'SELECT') {
+    // td 태그의 자식요소가 SELECT인 경우
+    content = tag.firstElementChild.value;
+  } else {
+    continue;
+  }
+  console.log(content);
+}
+</script>
+</html>
