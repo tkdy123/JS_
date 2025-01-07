@@ -29,7 +29,7 @@ function addTbody(list) {
     trTag.addEventListener('click', function(event){
 
       let tr = event.currentTarget;
-      let selectId = tr.children[1].textContent;
+      let selectId = tr.children[1].textContent; // textContent = innerHTML
       findUserById(selectId);
     });
 
@@ -109,4 +109,5 @@ function getUserInfo(user) {
       document.getElementsByName(field)[0].value = user[field];
     }
   }
+
 }
