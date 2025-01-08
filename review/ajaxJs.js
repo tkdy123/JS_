@@ -3,7 +3,27 @@ init();
 // 최초 셋팅
 function init() {
   // 각 태그의 이벤트 처리
+  document.getElementById('initBtn')
+    .addEventListener('click', function (event) {
+      // 입력태그 초기화
+      // 1) 입력태그를 검색 : input, select
+      let tags = document.querySelectorAll('input, select');
+      console.log(tags);
+      tags.forEach(function (tag, index, array) { // <=
+        console.log(tag, index, array);
+        // 2) 입력태그의 value 속성 초기화
+        tag.value = '';
+      });
+    });
 
+  document.getElementById('insertBtn')
+    .addEventListener('click', addUserInfo);
+
+  document.getElementById('updateBtn')
+          .addEventListener('click', updateUserInfo);
+
+  document.getElementById('delBtn')
+          .addEventListener('click', deleteUserInfo);
   // 데이터를 가져오는 작업
   getUserList();
 }
@@ -23,17 +43,19 @@ function getUserList() {
 
 
 function addTbody(list) {
+  document.querySelector('#list tbody').replaceChildren();
+
   for (let info of list) {
     // <td/> 들을 감쌀 <tr/>이 필요
     let trTag = document.createElement('tr');
-    trTag.addEventListener('click', function(event){
+    trTag.addEventListener('click', function (event) {
 
       let tr = event.currentTarget;
       let selectId = tr.children[1].textContent; // textContent = innerHTML
       findUserById(selectId);
     });
 
-    
+
 
     // 번호
     let tdTag = document.createElement('td');
@@ -110,4 +132,75 @@ function getUserInfo(user) {
     }
   }
 
+}
+
+function addUserInfo(event) { // 새로운 회원을 등록
+  // 1) 새로운 회원정보 확인
+  let userInfo = formUserInfo();
+
+  // 2) 서버에 전송 : AJAX
+  fetch('http://192.168.0.11:8099/userInsert', {
+    method : 'post',
+    // content-type : application/x-www-form-urlencoded 
+    body : new URLSearchParams(userInfo)
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+      // 3) 화면에 출력
+      getUserList();
+      document.getElementsByName('no')[0].value = result.no;
+    })
+    .catch(err => console.log(err));
+}
+
+function formUserInfo() {
+  // 입력 태그들의 값을 가져옴
+  // 1) 입력 태그를 검색 : input, select
+  let tags = document.querySelectorAll('input, select');
+
+  let obj = {};
+  tags.forEach(function (tag, index, array) {
+
+    // 2) 입력태그의 value 속성 값 가져오기
+    //console.log(tag.name, tag.value);
+    obj[tag.name] = tag.value;
+  });
+  console.log('obj', obj);
+  return obj;
+}
+
+function updateUserInfo(event){
+  // 1) 현재 사용자가 입력한 회원정보 확인
+  let userInfo = formUserInfo();
+  // 2) 서버 전송 : AJAX
+  fetch('http://192.168.0.11:8099/userUpdate', {
+    method : 'post',
+    // content-type : application/json
+    headers : {
+      'content-type' : 'application/json'
+    },
+    body : JSON.stringify(userInfo)
+  })
+  .then(response => response.json())
+  .then(result => {
+    // 3) 화면 출력
+    getUserList();
+  })
+  .catch(err => console.log(err));
+}
+
+function deleteUserInfo(event){
+  // 1) 삭제할 회원정보 확인
+  let userId = document.getElementsByName('id')[0].value; // userId = formUserInfo().id; 랑 같음
+  // 2) 서버 전송 : AJAX
+  fetch(`http://192.168.0.11:8099/userDelete?id=${userId}`)
+    .then(response => response.json())
+    .then(result => {
+      // 3) 화면 출력
+      
+      getUserList();
+      
+    })
+    .catch(err => console.log(err));
 }
