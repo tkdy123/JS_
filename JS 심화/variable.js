@@ -36,9 +36,17 @@ console.clear();
             - 블록 스코프
             - 중복 선언 불가
 */
-(function blackScope(){
-
- })();
+(function blockScope(){
+  let x, y;
+  for(let i = 1; i <= 3; i++){
+    for(let j = 1; j <= 3; j++){
+      console.log(`${i} X ${j} = ${(i * j)}`);
+      y = j;
+    }
+    x = i;
+  };
+  console.log('last', x, y);
+})();
 /*
  변수의 데이터 타입 : NUMBER, STRING, OBJECT, ARRAY, BOOLEAN, ETC
  1) 기본 타입 : NUMBER, STRING BOOLEAN
