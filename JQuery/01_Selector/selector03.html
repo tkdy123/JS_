@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>선택자 03</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>탐색 선택자1</h1>
+    <ul id="menu">
+      <li>내용1</li>
+      <li id="second">내용2</li>
+      <li>내용3</li>
+      <li>내용4</li>
+      <li>내용5</li>
+    </ul>
+  </div>
+  <script>
+    // first, last
+    $('#menu li:first').text('first 변경');
+    $('#menu li').first().css('color', 'red');
+    $('#menu li:last').text('last 변경');
+    // even : 홀수번째 요소 -> 인덱스는 짝수
+    // odd   : 짝수번째 요소 -> 인덱스는 홀수
+    $('#menu li:odd').text('짝수 요소');
+
+    // eq    : equals, 지정한 인덱스 요소
+    $('#menu')
+    // lt    : less then, 지정한 인덱스보다 작은 요소
+
+    // gt    : great then, 지정한 인덱스보다 큰 요소
+    
+  </script>
+</body>
+</html>
