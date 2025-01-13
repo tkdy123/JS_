@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>예제</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  
+  <div id="list">
+    <ul>
+      <!-- 근무지역이 서울인 사원이름 -->
+      
+    </ul>
+    <ul>
+      <!-- 근무하는 부서가 생산인 사원이름 -->
+
+    </ul>
+  </div>
+    <script>
+    const data = [
+      {"area" : "서울", "dept" : "영업", "name" : "무대리"},
+      {"area" : "부산", "dept" : "영업", "name" : "홍과장"},
+      {"area" : "대전", "dept" : "생산", "name" : "박사장"},
+      {"area" : "서울", "dept" : "생산", "name" : "김부장"}
+    ];
+
+    // 근무지역이 서울인 사원이름
+    $(data).each(function(idx, value){
+      if(value.area == "서울"){
+      let liTag = $('<li/>') // .text(value.name);
+      liTag.text(value.name);
+      $('#list ul:first').append(liTag);
+    }
+    });
+
+    // 근무하는 부서가 생산인 사원이름
+    // 1) 새로운 배열 생성
+    let empAry = $.map(data, function(value, index){
+      if(value.dept == "생산"){
+        return value.name;
+      }
+    });
+    // 2) 그 배열을 기반으로 <li/> 태그 생성
+    $.each(empAry, function(index, value){
+      // 3) <ul/> 태그에 추가
+      $('#list ul:last').append(`<li>${value}</li>`);
+    })
+  </script>
+</body>
+</html>

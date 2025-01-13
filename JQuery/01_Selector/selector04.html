@@ -12,7 +12,7 @@
       <a href="https://jquery.com" target="_blank">jQuery</a>
     </p>
     <p>
-      <a href="http://www.naver.com" target="_blank">naver</a>
+      <a href="http://www.naver.com" target>naver</a>
     </p>
     <p>
       <a href="http://www.daum.net">daum</a>
@@ -32,5 +32,29 @@
       <button>전송</button>
     </form>
   </div>
+  <script>
+    // 속성 검색 []
+
+    // a 태그 중 target 속성이 존재하는 요소만 : 값 없어도 포함
+    $('#wrap a[target]').css('color', 'darkOrange');
+    // target 속성이 지정된 값을 가지는 경우만
+    $('#wrap a[target="_blank"]').css('color', 'FireBrick');
+
+    // a 태그 중 href 속성의 값이 https로 시작되는 요소만 : ^
+    $('#wrap a[href^="https"]').css('color', 'pink');
+
+    // a 태그 중 href 속성의 값이 net으로 끝나는 요소만 : $
+    $('#wrap [href$="net"]').css('color', 'brown')
+
+    // a 태그 중 href 속성의 값에 google이 포함되는 요소만 : *
+    $('#wrap a[href*="google"]').css('color', 'yellow')
+
+    // a 태그 중 href 속성 값이 정확하게 wwww.google.com인 요소만
+    $('a[href="www.google.co.k"]').css('border', '2px solid grey');
+
+    // <input> 태그의 type 속성 : type
+    $('#member_f : text').css('background-color', 'grey');
+    $('#member_f')
+  </script>
 </body>
 </html>
