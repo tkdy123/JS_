@@ -35,6 +35,7 @@
     // a 태그 모두 기본 이벤트 동작을 막고 이벤트 버블링을 멈춤
     $('a').on('click', function(event){
       event.preventDefault();
+      
       event.stopPropagation();
     });
 
